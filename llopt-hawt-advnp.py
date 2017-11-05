@@ -42,8 +42,8 @@ omega = 2. * np.pi * n
 # Chord distribution along the blade in 4 steps (DNV GL BLADED has 10)
 chh= 0.08 #!14
 ch1= 0.09 #!16
-ch2= 0.08 #	!16
-cht= 0.07 #	!14
+ch2= 0.07 #	!16
+cht= 0.057 #	!14
 chr1= 0.3
 chr2= 0.7
 
@@ -376,8 +376,10 @@ def two_scales(ax1, x, data1, data2, c1, c2):
 
     Returns
     -------
-    ax : axis -- Original axis
-    ax2 : axis -- New twin axis
+    ax : axis
+        Original axis
+    ax2 : axis
+        New twin axis
     """
     ax2 = ax1.twinx()
 
@@ -389,6 +391,13 @@ def two_scales(ax1, x, data1, data2, c1, c2):
     ax2.set_ylabel('dG/dr')
     return ax1, ax2
 
+# Change color of each axis
+def color_y_axis(ax, color):
+    """Color for the axes."""
+    for t in ax.get_yticklabels():
+        t.set_color(color)
+    return None
+
 
 x = np.linspace(drh, 1, 70)
 yg = Gfx(x)
@@ -397,17 +406,9 @@ ygp = Gdx(x)
 # Create axes
 fig, ax = plt.subplots()
 ax1, ax2 = two_scales(ax, x, yg, ygp, 'r', 'b')
-
-# Change color of each axis
-def color_y_axis(ax, color):
-    """Color for the axes."""
-    for t in ax.get_yticklabels():
-        t.set_color(color)
-    return None
 color_y_axis(ax1, 'r')
 color_y_axis(ax2, 'b')
 plt.show()
-
 
 
 #x = np.zeros(No)
